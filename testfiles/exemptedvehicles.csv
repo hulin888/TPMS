@@ -1,0 +1,6 @@
+vehicleno,vehicletype,vehiclesubtype,exemptiontag
+MH 31 AB 1234,Car,Car,Y
+GJ 31 CD 1235,Bus,Bus,Y
+RJ 31 EF 1236,Truck,Truck,N
+MH23RT5678,Truck,Truck,N
+DL23RT5679,Truck,Truck,N

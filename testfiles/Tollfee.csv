@@ -1,0 +1,9 @@
+Location,Toll Naka,Type of vehicle,Single Journey,Return Journey,Monthly Pass,Commercial Vehicle Registered within the district of plaza,Effective Date,Till Date
+Nagpur,10,Car/Jeep/Van,110,160,3450,55,1/11/2021,99/99/9999
+Nagpur,10,Car/Jeep/Van,105,155,3445,50,1/1/2021,1/11/2021
+Nagpur,10,LCV,165,250,5565,85, , 
+Nagpur,10,Bus/Truck,350,525,11660,175, , 
+Nagpur,10,Upto 3 Axle Vehicle,380,570,12720,190, , 
+Nagpur,10,4 to 6 Axle,550,825,18285,275, , 
+Nagpur,10,HCM/EME,550,825,18285,275, , 
+Nagpur,10,7 or more Axle,670,1000,22260,335, , 
