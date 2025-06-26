@@ -1,0 +1,72 @@
+version: "3.5"
+
+services:
+  redis:
+    image: redis:latest
+    hostname: redis
+
+  tpms:
+    image: tpms:rc1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    hostname: tnms
+    volumes:
+      # - "./samples:/usr/src/app/samples"
+      - "./data:/usr/src/app/data"
+    ports: 
+      - 5000:5000
+    runtime: nvidia
+    links:
+      - mongo
+    depends_on:
+      - mongo
+
+  tpms_celery:
+    image: tpms_celery:rc1
+    build:
+      context: .
+      dockerfile: Dockerfile_celery
+    command: celery -A app.tasks worker --pool threads -E --loglevel INFO --logfile celery.log
+    volumes:
+      - "./data:/usr/src/app/data"
+    runtime: nvidia
+    links:
+      - redis
+    depends_on:
+      - redis
+
+  mongo:
+    image: mongo
+    # restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: global_tnms
+      MONGO_INITDB_ROOT_PASSWORD: fkJmzaD0JINWr
+    volumes: 
+      - './mongodb-data:/data/db'
+    ports: 
+      - 27017:27017
+
+  mongo-express:
+    container_name: mongo-expr
+    image: mongo-express
+    depends_on:
+      - mongo
+    environment:
+      - ME_CONFIG_MONGODB_URL="mongodb://global_tnms:fkJmzaD0JINWr@mongo:27017/?authSource=admin&readPreference=primary&appname=mongodb-vscode%200.6.10&ssl=false"
+
+    ports:
+      - '8081:8081'
+    # volumes: 
+    #   - './mongodb-data:/data/db' 
+
+  flower:
+    image: mher/flower
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379
+      - FLOWER_PORT=5555
+    # command: ['flower', '--broker=redis://redis:6379', '--port=5555']
+    ports:
+      - 5557:5555
+    depends_on:
+      - redis

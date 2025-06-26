@@ -1,0 +1,6 @@
+*.pyc
+samples
+mongodb-data
+data_local
+yolov5_old
+celery.log
